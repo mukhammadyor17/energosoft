@@ -1,0 +1,1116 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>EnergoSoft — учёт склада, производства, финансов и зарплаты</title>
+    <meta
+      name="description"
+      content="EnergoSoft — учётная система для малого и среднего бизнеса: склад, производство, финансы, кадры и зарплата в одной программе. Работает в браузере и на телефоне."
+    />
+    <meta name="theme-color" content="#0E7569" />
+
+    <meta property="og:type" content="website" />
+    <meta
+      property="og:title"
+      content="EnergoSoft — склад, производство, деньги и зарплата в одной системе"
+    />
+    <meta
+      property="og:description"
+      content="Учёт от закупки сырья до прибыли в отчёте. Без Excel и сверок между программами."
+    />
+    <meta property="og:image" content="img/og.png" />
+    <meta property="og:locale" content="ru_RU" />
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="img/favicon-32x32.png"
+    />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="16x16"
+      href="img/favicon-16x16.png"
+    />
+    <link rel="apple-touch-icon" href="img/apple-touch-icon.png" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Onest:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <!-- Иконки: один спрайт, чтобы не тянуть библиотеку ради пары десятков глифов -->
+    <svg width="0" height="0" style="position: absolute" aria-hidden="true">
+      <symbol id="i-wa" viewBox="0 0 24 24">
+        <path
+          fill="currentColor"
+          d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.86 9.86 0 0 0 12.04 2Zm5.8 14.03c-.25.69-1.44 1.32-1.99 1.37-.51.05-.99.24-3.32-.69-2.8-1.1-4.58-3.97-4.72-4.15-.14-.18-1.13-1.5-1.13-2.87 0-1.37.72-2.04.97-2.32.25-.28.55-.35.74-.35l.53.01c.17 0 .4-.06.62.48.25.6.83 2.06.9 2.2.07.15.12.32.02.51-.09.19-.14.31-.28.48-.14.16-.3.37-.42.49-.14.14-.29.29-.12.57.16.28.73 1.2 1.57 1.95 1.08.96 1.99 1.26 2.27 1.4.28.14.44.12.61-.07.16-.19.7-.82.89-1.1.18-.28.37-.23.62-.14.25.09 1.6.76 1.87.9.28.14.46.21.53.32.07.12.07.67-.18 1.36Z"
+        />
+      </symbol>
+      <symbol id="i-ig" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+          <circle cx="12" cy="12" r="4.2" />
+          <circle cx="17.4" cy="6.6" r=".6" fill="currentColor" />
+        </g>
+      </symbol>
+      <symbol id="i-box" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 8 12 3 3 8v8l9 5 9-5V8Z" />
+          <path d="m3 8 9 5 9-5M12 13v8" />
+        </g>
+      </symbol>
+      <symbol id="i-wallet" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M19 7V5a2 2 0 0 0-2-2H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-3"
+          />
+          <path d="M21 9h-5a3 3 0 0 0 0 6h5V9Z" />
+        </g>
+      </symbol>
+      <symbol id="i-users" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="9" cy="8" r="4" />
+          <path
+            d="M2 21a7 7 0 0 1 14 0M16 4a4 4 0 0 1 0 8M22 21a7 7 0 0 0-4-6.3"
+          />
+        </g>
+      </symbol>
+      <symbol id="i-book" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M4 19V5a2 2 0 0 1 2-2h14v16H6a2 2 0 0 0-2 2Zm0 0a2 2 0 0 0 2 2h14"
+          />
+          <path d="M9 8h7M9 12h5" />
+        </g>
+      </symbol>
+      <symbol id="i-check" viewBox="0 0 24 24">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2.2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="m5 12.5 4.5 4.5L19 7.5"
+        />
+      </symbol>
+      <symbol id="i-arrow" viewBox="0 0 24 24">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          d="M5 12h14m-6-6 6 6-6 6"
+        />
+      </symbol>
+      <symbol id="i-table" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="3" y="3" width="18" height="18" rx="2" />
+          <path d="M3 9h18M3 15h18M9 3v18" />
+        </g>
+      </symbol>
+      <symbol id="i-coins" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="8" cy="8" r="5" />
+          <path d="M18.1 10.4A5 5 0 1 1 11 17.6M7 6.5h1.5v4" />
+        </g>
+      </symbol>
+      <symbol id="i-cash" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="6" width="20" height="12" rx="2" />
+          <circle cx="12" cy="12" r="2.5" />
+          <path d="M6 12h.01M18 12h.01" />
+        </g>
+      </symbol>
+      <symbol id="i-chat" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M21 12a8 8 0 0 1-11.8 7L4 20.5l1.5-5A8 8 0 1 1 21 12Z" />
+          <path d="M8.5 12h.01M12 12h.01M15.5 12h.01" />
+        </g>
+      </symbol>
+      <symbol id="i-truck" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M14 17V6a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11h2M14 17h-5M14 8h4l4 4v5h-2"
+          />
+          <circle cx="6.5" cy="17.5" r="2" />
+          <circle cx="17.5" cy="17.5" r="2" />
+        </g>
+      </symbol>
+      <symbol id="i-factory" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M2 20V9l6 4V9l6 4V4h4l2 16H2Z" />
+          <path d="M7 17h2M12 17h2" />
+        </g>
+      </symbol>
+      <symbol id="i-cart" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <circle cx="9" cy="20" r="1.5" />
+          <circle cx="18" cy="20" r="1.5" />
+          <path
+            d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 8H6"
+          />
+        </g>
+      </symbol>
+      <symbol id="i-chart" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M3 3v18h18" />
+          <path d="m7 15 4-4 3 3 6-7" />
+        </g>
+      </symbol>
+      <symbol id="i-shield" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path d="M12 22s8-3.5 8-10V5l-8-3-8 3v7c0 6.5 8 10 8 10Z" />
+          <path d="m9 12 2 2 4-4" />
+        </g>
+      </symbol>
+      <symbol id="i-mail" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="2" y="4" width="20" height="16" rx="2" />
+          <path d="m22 7-10 6L2 7" />
+        </g>
+      </symbol>
+      <symbol id="i-building" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="4" y="2" width="16" height="20" rx="2" />
+          <path
+            d="M9 22v-4h6v4M8 6h.01M12 6h.01M16 6h.01M8 10h.01M12 10h.01M16 10h.01M8 14h.01M12 14h.01M16 14h.01"
+          />
+        </g>
+      </symbol>
+      <symbol id="i-printer" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <path
+            d="M6 9V2h12v7M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"
+          />
+          <rect x="6" y="14" width="12" height="8" />
+        </g>
+      </symbol>
+      <symbol id="i-phone" viewBox="0 0 24 24">
+        <g
+          fill="none"
+          stroke="currentColor"
+          stroke-width="1.8"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <rect x="5" y="2" width="14" height="20" rx="2" />
+          <path d="M12 18h.01" />
+        </g>
+      </symbol>
+      <symbol id="i-menu" viewBox="0 0 24 24">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          d="M4 6h16M4 12h16M4 18h16"
+        />
+      </symbol>
+      <symbol id="i-close" viewBox="0 0 24 24">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          d="M6 6l12 12M18 6 6 18"
+        />
+      </symbol>
+      <symbol id="i-plus" viewBox="0 0 24 24">
+        <path
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          d="M12 5v14M5 12h14"
+        />
+      </symbol>
+    </svg>
+
+    <header class="header" id="top">
+      <div class="container header__inner">
+        <a class="logo" href="#top" aria-label="EnergoSoft — на главную">
+          Energo<span>Soft.</span>
+        </a>
+
+        <nav class="nav" id="nav" aria-label="Разделы">
+          <a href="#modules">Возможности</a>
+          <a href="#flow">Как это работает</a>
+          <a href="#reports">Отчёты</a>
+          <a href="#faq">Вопросы</a>
+          <a
+            class="btn btn--primary nav__cta"
+            href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+            target="_blank"
+            rel="noopener"
+          >
+            <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
+          </a>
+        </nav>
+
+        <a
+          class="btn btn--primary header__cta"
+          href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+          target="_blank"
+          rel="noopener"
+        >
+          <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
+        </a>
+
+        <button
+          class="burger"
+          type="button"
+          aria-label="Открыть меню"
+          aria-expanded="false"
+          aria-controls="nav"
+        >
+          <svg class="icon icon--open"><use href="#i-menu" /></svg>
+          <svg class="icon icon--close"><use href="#i-close" /></svg>
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <!-- ПЕРВЫЙ ЭКРАН -->
+      <section class="hero">
+        <div class="container">
+          <div class="hero__text">
+            <p class="eyebrow">Учётная система для малого и среднего бизнеса</p>
+            <h1>
+              Склад, производство, деньги и&nbsp;зарплата — в&nbsp;одной системе
+            </h1>
+            <p class="lead">
+              EnergoSoft ведёт учёт от закупки сырья до прибыли в отчёте. Одна
+              операция сразу меняет остатки, себестоимость и деньги — без Excel
+              и сверок между программами.
+            </p>
+            <div class="hero__actions">
+              <a
+                class="btn btn--primary btn--lg"
+                href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
+              </a>
+              <a class="btn btn--outline btn--lg" href="#modules"
+                >Посмотреть возможности</a
+              >
+            </div>
+            <ul class="hero__points">
+              <li>
+                <svg class="icon"><use href="#i-check" /></svg>Работает в
+                браузере и на телефоне
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-check" /></svg>Учёт в тенге
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-check" /></svg>Несколько
+                компаний в одном аккаунте
+              </li>
+            </ul>
+          </div>
+
+          <figure class="shot shot--hero reveal">
+            <div class="shot__bar" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <img
+              src="img/3.png"
+              width="1181"
+              height="898"
+              alt="Дашборд финансов EnergoSoft: деньги на счетах, выручка, маржа, чистая прибыль, долги клиентов и поставщиков"
+              fetchpriority="high"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- БОЛИ -->
+      <section class="section pains">
+        <div class="container">
+          <div class="section__head">
+            <p class="eyebrow">Знакомо?</p>
+            <h2>Когда учёт разбросан по таблицам и программам</h2>
+          </div>
+
+          <div class="pains__grid">
+            <article class="pain reveal">
+              <div class="pain__icon">
+                <svg class="icon"><use href="#i-table" /></svg>
+              </div>
+              <h3>Остатки в таблице не совпадают со складом</h3>
+              <p>
+                Приход записали, расход забыли. Реальную цифру узнаёте только на
+                инвентаризации.
+              </p>
+            </article>
+            <article class="pain reveal">
+              <div class="pain__icon">
+                <svg class="icon"><use href="#i-coins" /></svg>
+              </div>
+              <h3>Себестоимость считается на глаз</h3>
+              <p>
+                Сырьё дорожает от партии к партии, а цена продукции остаётся
+                прежней. Маржа тает незаметно.
+              </p>
+            </article>
+            <article class="pain reveal">
+              <div class="pain__icon">
+                <svg class="icon"><use href="#i-cash" /></svg>
+              </div>
+              <h3>Непонятно, где деньги</h3>
+              <p>
+                Выручка есть, а на счетах пусто. Картина складывается из трёх
+                выписок и блокнота.
+              </p>
+            </article>
+            <article class="pain reveal">
+              <div class="pain__icon">
+                <svg class="icon"><use href="#i-chat" /></svg>
+              </div>
+              <h3>Долги выясняют по переписке</h3>
+              <p>
+                Сколько вы должны поставщикам и кто должен вам — знает один
+                бухгалтер, и то к концу месяца.
+              </p>
+            </article>
+          </div>
+
+          <p class="pains__answer">
+            EnergoSoft решает это одной системой: склад, производство,
+            бухгалтерия и руководитель работают с одними и теми же данными.
+          </p>
+        </div>
+      </section>
+
+      <!-- МОДУЛИ -->
+      <section class="section modules" id="modules">
+        <div class="container">
+          <div class="section__head">
+            <p class="eyebrow">Возможности</p>
+            <h2>Четыре модуля, которые работают вместе</h2>
+            <p class="section__lead">
+              Подключайте те, что нужны сейчас, остальные — когда понадобятся.
+            </p>
+          </div>
+
+          <div class="tabs" role="tablist" aria-label="Модули EnergoSoft">
+            <button
+              class="tab"
+              role="tab"
+              id="tab-stock"
+              aria-controls="panel-stock"
+              aria-selected="true"
+            >
+              <svg class="icon"><use href="#i-box" /></svg>Склад и производство
+            </button>
+            <button
+              class="tab"
+              role="tab"
+              id="tab-finance"
+              aria-controls="panel-finance"
+              aria-selected="false"
+              tabindex="-1"
+            >
+              <svg class="icon"><use href="#i-wallet" /></svg>Финансы
+            </button>
+            <button
+              class="tab"
+              role="tab"
+              id="tab-hr"
+              aria-controls="panel-hr"
+              aria-selected="false"
+              tabindex="-1"
+            >
+              <svg class="icon"><use href="#i-users" /></svg>Кадры и зарплата
+            </button>
+            <button
+              class="tab"
+              role="tab"
+              id="tab-catalog"
+              aria-controls="panel-catalog"
+              aria-selected="false"
+              tabindex="-1"
+            >
+              <svg class="icon"><use href="#i-book" /></svg>Справочники
+            </button>
+          </div>
+
+          <div
+            class="panel"
+            role="tabpanel"
+            id="panel-stock"
+            aria-labelledby="tab-stock"
+          >
+            <div class="panel__text">
+              <h3>
+                Сколько товара на складе и сколько он стоит — на сегодня, а не
+                на конец месяца
+              </h3>
+              <ul class="checks">
+                <li>Закупки у поставщиков и возвраты</li>
+                <li>Заказы клиентов с резервом товара</li>
+                <li>
+                  Производство: сырьё списывается, готовая продукция приходуется
+                  по реальной себестоимости
+                </li>
+                <li>Перемещения между складами, списания и инвентаризация</li>
+                <li>Себестоимость по партиям считается автоматически</li>
+                <li>
+                  Предупреждения о позициях ниже минимума и о товаре без
+                  движения
+                </li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <div class="shot__bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </div>
+              <img
+                src="img/1.png"
+                width="1182"
+                height="894"
+                loading="lazy"
+                alt="Дашборд склада: запасы, приход и расход за месяц, резерв заказов, запасы по складам"
+              />
+            </figure>
+          </div>
+
+          <div
+            class="panel"
+            role="tabpanel"
+            id="panel-finance"
+            aria-labelledby="tab-finance"
+            hidden
+          >
+            <div class="panel__text">
+              <h3>
+                Все деньги компании в одном журнале: касса, банковские счета,
+                Kaspi Pay
+              </h3>
+              <ul class="checks">
+                <li>
+                  Поступления, выплаты и переводы между счетами по статьям
+                </li>
+                <li>
+                  Оплаты привязаны к закупкам и заказам — видно, что оплачено и
+                  сколько осталось
+                </li>
+                <li>Основные средства с ежемесячной амортизацией</li>
+                <li>Фонды и обязательства: займы, кредиты, дивиденды</li>
+                <li>
+                  Закрытие месяца — прошлый период не изменить задним числом
+                </li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <div class="shot__bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </div>
+              <img
+                src="img/4.png"
+                width="1183"
+                height="743"
+                loading="lazy"
+                alt="Касса: остатки по счетам Kaspi Pay, наличные и расчётный счёт, журнал поступлений и выплат"
+              />
+            </figure>
+          </div>
+
+          <div
+            class="panel"
+            role="tabpanel"
+            id="panel-hr"
+            aria-labelledby="tab-hr"
+            hidden
+          >
+            <div class="panel__text">
+              <h3>
+                Кто работает в компании, на какой должности и с какого числа
+              </h3>
+              <ul class="checks">
+                <li>Сотрудники, подразделения и должности</li>
+                <li>Собственные виды начислений и удержаний</li>
+                <li>Зарплатные ведомости по месяцам</li>
+                <li>История приёма и увольнений</li>
+              </ul>
+            </div>
+            <div class="shots">
+              <figure class="shot">
+                <div class="shot__bar" aria-hidden="true">
+                  <i></i><i></i><i></i>
+                </div>
+                <img
+                  src="img/6.png"
+                  width="1182"
+                  height="869"
+                  loading="lazy"
+                  alt="Список сотрудников с должностями, подразделениями, датой приёма и статусом"
+                />
+              </figure>
+              <figure class="shot shot--float shot--crop-payroll">
+                <img
+                  src="img/9.png"
+                  width="1202"
+                  height="917"
+                  loading="lazy"
+                  alt="Зарплатная ведомость за месяц: начислено, удержано, к выплате по каждому сотруднику"
+                />
+              </figure>
+            </div>
+          </div>
+
+          <div
+            class="panel"
+            role="tabpanel"
+            id="panel-catalog"
+            aria-labelledby="tab-catalog"
+            hidden
+          >
+            <div class="panel__text">
+              <h3>
+                Единая база для всех модулей: ввели один раз — пользуются все
+              </h3>
+              <ul class="checks">
+                <li>Номенклатура, категории и модели</li>
+                <li>Поставщики и клиенты</li>
+                <li>Склады и единицы измерения</li>
+                <li>Виды цен и прайс-листы</li>
+                <li>Услуги</li>
+              </ul>
+            </div>
+            <figure class="shot">
+              <div class="shot__bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </div>
+              <img
+                src="img/8.png"
+                width="1200"
+                height="859"
+                loading="lazy"
+                alt="Справочник категорий номенклатуры с количеством позиций и статусом"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- КАК ЭТО СВЯЗАНО -->
+      <section class="section flow" id="flow">
+        <div class="container">
+          <div class="section__head">
+            <p class="eyebrow">Как это работает</p>
+            <h2>Одна операция — все цифры сразу</h2>
+            <p class="section__lead">
+              Не нужно переносить данные между отделами: каждый документ сам
+              обновляет всё, что от него зависит.
+            </p>
+          </div>
+
+          <ol class="flow__steps">
+            <li class="step reveal">
+              <div class="step__icon">
+                <svg class="icon"><use href="#i-truck" /></svg>
+              </div>
+              <h3>Закупка</h3>
+              <p class="step__do">Приняли сырьё от поставщика</p>
+              <p class="step__result">Остаток вырос, долг поставщику записан</p>
+            </li>
+            <li class="step reveal">
+              <div class="step__icon">
+                <svg class="icon"><use href="#i-factory" /></svg>
+              </div>
+              <h3>Производство</h3>
+              <p class="step__do">Выпустили продукцию</p>
+              <p class="step__result">
+                Сырьё списано, себестоимость посчитана по партиям
+              </p>
+            </li>
+            <li class="step reveal">
+              <div class="step__icon">
+                <svg class="icon"><use href="#i-cart" /></svg>
+              </div>
+              <h3>Продажа</h3>
+              <p class="step__do">Отгрузили заказ клиенту</p>
+              <p class="step__result">
+                Товар ушёл со склада, долг клиента записан
+              </p>
+            </li>
+            <li class="step reveal">
+              <div class="step__icon">
+                <svg class="icon"><use href="#i-wallet" /></svg>
+              </div>
+              <h3>Оплата</h3>
+              <p class="step__do">Клиент перевёл деньги</p>
+              <p class="step__result">Счёт пополнился, долг закрыт</p>
+            </li>
+            <li class="step reveal">
+              <div class="step__icon">
+                <svg class="icon"><use href="#i-chart" /></svg>
+              </div>
+              <h3>Отчёты</h3>
+              <p class="step__do">Открыли дашборд</p>
+              <p class="step__result">Прибыль, маржа и остатки уже актуальны</p>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <!-- ОТЧЁТЫ -->
+      <section class="section reports" id="reports">
+        <div class="container split">
+          <div class="split__text">
+            <p class="eyebrow">Для руководителя</p>
+            <h2>Отчёты, которые не нужно собирать</h2>
+            <p class="section__lead">
+              Открываете дашборд и видите, сколько денег сейчас, какая выручка и
+              маржа, кто должен компании и кому должна она.
+            </p>
+            <dl class="reports__list">
+              <div>
+                <dt>ОПиУ</dt>
+                <dd>прибыль и расходы по месяцам</dd>
+              </div>
+              <div>
+                <dt>ДДС</dt>
+                <dd>откуда пришли и куда ушли деньги</dd>
+              </div>
+              <div>
+                <dt>Баланс</dt>
+                <dd>актив и пассив на конец каждого месяца</dd>
+              </div>
+              <div>
+                <dt>Дебет / Кредит</dt>
+                <dd>расчёты с контрагентами и сотрудниками</dd>
+              </div>
+              <div>
+                <dt>ABC-XYZ</dt>
+                <dd>какие товары приносят выручку и маржу</dd>
+              </div>
+              <div>
+                <dt>Основные средства</dt>
+                <dd>износ и остаточная стоимость</dd>
+              </div>
+              <div>
+                <dt>Остатки склада</dt>
+                <dd>приход, расход и остаток за любой период</dd>
+              </div>
+            </dl>
+          </div>
+          <figure class="shot reveal">
+            <div class="shot__bar" aria-hidden="true">
+              <i></i><i></i><i></i>
+            </div>
+            <img
+              src="img/5.png"
+              width="1198"
+              height="834"
+              loading="lazy"
+              alt="Раздел отчётов финансов: ДДС, ОПиУ, баланс, дебет и кредит, основные средства, ABC-XYZ анализ продаж"
+            />
+          </figure>
+        </div>
+      </section>
+
+      <!-- ДОСТУП -->
+      <section class="section access" id="access">
+        <div class="container split split--reverse">
+          <div class="split__text">
+            <p class="eyebrow">Доступ и удобство</p>
+            <h2>Каждый видит только своё</h2>
+            <ul class="features">
+              <li>
+                <svg class="icon"><use href="#i-shield" /></svg>
+                <div>
+                  <b>Роли и права по модулям</b
+                  ><span
+                    >Кладовщик работает со складом, бухгалтер — с финансами,
+                    директор видит всё.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-mail" /></svg>
+                <div>
+                  <b>Сотрудники по приглашению</b
+                  ><span
+                    >Отправляете приглашение — человек входит уже с нужной
+                    ролью.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-building" /></svg>
+                <div>
+                  <b>Несколько компаний</b
+                  ><span
+                    >У каждой свои данные и пользователи, переключение в один
+                    клик.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-printer" /></svg>
+                <div>
+                  <b>Печатные формы</b
+                  ><span
+                    >Накладные открываются прямо в системе, выгружаются в PDF и
+                    Excel.</span
+                  >
+                </div>
+              </li>
+              <li>
+                <svg class="icon"><use href="#i-phone" /></svg>
+                <div>
+                  <b>Браузер и телефон</b
+                  ><span
+                    >Ничего не нужно устанавливать. На телефоне открывается как
+                    приложение.</span
+                  >
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="shots reveal">
+            <figure class="shot">
+              <div class="shot__bar" aria-hidden="true">
+                <i></i><i></i><i></i>
+              </div>
+              <img
+                src="img/7.png"
+                width="1199"
+                height="813"
+                loading="lazy"
+                alt="Настройки пространства: пользователи, роли, приглашения, модули и подписки, региональные параметры"
+              />
+            </figure>
+            <figure class="shot shot--float shot--crop-roles">
+              <img
+                src="img/10.png"
+                width="1203"
+                height="652"
+                loading="lazy"
+                alt="Роли и права доступа в пространстве"
+              />
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- МОДУЛЬНАЯ ОПЛАТА -->
+      <section class="section">
+        <div class="container">
+          <div class="pricing reveal">
+            <div class="pricing__text">
+              <h2>Платите только за нужные модули</h2>
+              <p>
+                Начните со склада или финансов и подключайте остальное, когда
+                понадобится. Стоимость зависит от набора модулей — расскажем в
+                WhatsApp.
+              </p>
+              <ul class="chips">
+                <li>Склад и производство</li>
+                <li>Финансы</li>
+                <li>Кадры и зарплата</li>
+                <li class="chips__soon">CRM — скоро</li>
+              </ul>
+            </div>
+            <a
+              class="btn btn--primary btn--lg"
+              href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+              target="_blank"
+              rel="noopener"
+            >
+              <svg class="icon"><use href="#i-wa" /></svg>Узнать стоимость
+            </a>
+          </div>
+        </div>
+      </section>
+
+      <!-- FAQ -->
+      <section class="section faq" id="faq">
+        <div class="container container--narrow">
+          <div class="section__head">
+            <p class="eyebrow">Вопросы</p>
+            <h2>Частые вопросы</h2>
+          </div>
+
+          <div class="faq__list">
+            <details class="qa">
+              <summary>
+                Нужно ли что-то устанавливать?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Нет. EnergoSoft работает в браузере на компьютере, планшете и
+                телефоне. На телефоне можно добавить иконку на главный экран —
+                система откроется как обычное приложение.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Подходит ли для производства?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Да. Документ изготовления списывает сырьё и приходует готовую
+                продукцию, а себестоимость рассчитывается по фактическим ценам
+                партий, из которых она сделана.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Сейчас учёт ведётся в Excel. Как перейти?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Вносите начальные остатки товаров, денег и долгов — и дальше
+                работаете в системе с текущей даты. Напишите нам, подскажем, с
+                чего удобнее начать.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Можно ли вести несколько компаний?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Да. У каждой компании своё пространство: отдельные данные,
+                пользователи и набор модулей. Переключаться между ними можно в
+                один клик.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Как ограничить доступ сотрудникам?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Через роли. Для каждой роли задаются права по модулям: только
+                просмотр или работа с документами. Сотрудник видит лишь те
+                разделы, к которым у него есть доступ.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Можно ли печатать документы?<svg class="icon">
+                  <use href="#i-plus" />
+                </svg>
+              </summary>
+              <p>
+                Да. Накладные и другие печатные формы открываются прямо в
+                системе — оттуда их можно распечатать или выгрузить в PDF и
+                Excel.
+              </p>
+            </details>
+            <details class="qa">
+              <summary>
+                Сколько стоит?<svg class="icon"><use href="#i-plus" /></svg>
+              </summary>
+              <p>
+                Стоимость зависит от набора модулей. Напишите в WhatsApp —
+                рассчитаем под вашу задачу.
+              </p>
+            </details>
+          </div>
+        </div>
+      </section>
+
+      <!-- ФИНАЛЬНЫЙ ПРИЗЫВ -->
+      <section class="section section--tight">
+        <div class="container">
+          <div class="cta reveal">
+            <h2>Расскажем, как EnergoSoft подойдёт вашему бизнесу</h2>
+            <p>Напишите в WhatsApp — ответим на вопросы и покажем систему.</p>
+            <div class="cta__actions">
+              <a
+                class="btn btn--light btn--lg"
+                href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
+              </a>
+              <a
+                class="btn btn--ghost-light btn--lg"
+                href="https://www.instagram.com/anycode.kz"
+                target="_blank"
+                rel="noopener"
+              >
+                <svg class="icon"><use href="#i-ig" /></svg>Instagram
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div class="container footer__inner">
+        <a class="logo" href="#top">Energo<span>Soft.</span></a>
+        <p class="footer__meta">
+          © 2026 EnergoSoft · Разработка —
+          <a
+            href="https://www.instagram.com/anycode.kz"
+            target="_blank"
+            rel="noopener"
+            >Anycode</a
+          >
+        </p>
+        <div class="footer__links">
+          <a
+            href="https://wa.me/77080039686"
+            target="_blank"
+            rel="noopener"
+            aria-label="WhatsApp"
+            ><svg class="icon"><use href="#i-wa" /></svg
+          ></a>
+          <a
+            href="https://www.instagram.com/anycode.kz"
+            target="_blank"
+            rel="noopener"
+            aria-label="Instagram"
+            ><svg class="icon"><use href="#i-ig" /></svg
+          ></a>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Плавающая кнопка: на телефоне шапка уезжает, а связаться надо в любой момент -->
+    <a
+      class="fab"
+      href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+      target="_blank"
+      rel="noopener"
+      aria-label="Написать в WhatsApp"
+    >
+      <svg class="icon"><use href="#i-wa" /></svg>
+    </a>
+
+    <!-- Увеличенный скриншот -->
+    <dialog class="lightbox" id="lightbox" aria-label="Скриншот">
+      <button class="lightbox__close" type="button" aria-label="Закрыть">
+        <svg class="icon"><use href="#i-close" /></svg>
+      </button>
+      <img alt="" />
+    </dialog>
+
+    <script src="js/main.js" defer></script>
+  </body>
+</html>
