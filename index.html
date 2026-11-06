@@ -346,25 +346,24 @@
           <a href="#modules">Возможности</a>
           <a href="#flow">Как это работает</a>
           <a href="#reports">Отчёты</a>
+          <a href="#pricing">Тарифы</a>
           <a href="#faq">Вопросы</a>
           <a
             class="btn btn--primary nav__cta"
-            href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+            href="https://my.energosoft.kz/workspace/new"
             target="_blank"
             rel="noopener"
+            >Оставить заявку</a
           >
-            <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
-          </a>
         </nav>
 
         <a
           class="btn btn--primary header__cta"
-          href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+          href="https://my.energosoft.kz/workspace/new"
           target="_blank"
           rel="noopener"
+          >Оставить заявку</a
         >
-          <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
-        </a>
 
         <button
           class="burger"
@@ -396,11 +395,11 @@
             <div class="hero__actions">
               <a
                 class="btn btn--primary btn--lg"
-                href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
+                href="https://my.energosoft.kz/workspace/new"
                 target="_blank"
                 rel="noopener"
               >
-                <svg class="icon"><use href="#i-wa" /></svg>Написать в WhatsApp
+                Оставить заявку<svg class="icon"><use href="#i-arrow" /></svg>
               </a>
               <a class="btn btn--outline btn--lg" href="#modules"
                 >Посмотреть возможности</a
@@ -433,6 +432,73 @@
               fetchpriority="high"
             />
           </figure>
+        </div>
+      </section>
+
+      <!-- КЛИЕНТЫ -->
+      <!-- В разметке логотипы один раз: без JS это просто ряд. Копии для бесконечной
+           ленты добавляет main.js — столько, сколько нужно под ширину экрана -->
+      <section class="clients" aria-labelledby="clients-title">
+        <div class="container">
+          <h2 class="clients__title" id="clients-title">Наши клиенты</h2>
+        </div>
+        <div class="marquee">
+          <ul class="marquee__track">
+            <li class="client">
+              <img
+                src="img/clients/mds-doors.png"
+                width="250"
+                height="85"
+                alt="MDS Doors — Metal Design Service"
+                loading="lazy"
+              />
+            </li>
+            <li class="client">
+              <img
+                src="img/clients/samruk-mebel.png"
+                width="160"
+                height="160"
+                alt="Samruk Mebel"
+                loading="lazy"
+              />
+            </li>
+            <li class="client">
+              <img
+                src="img/clients/kadi-home.png"
+                width="375"
+                height="147"
+                alt="Kadi Home — мебельный магазин"
+                loading="lazy"
+              />
+            </li>
+            <li class="client">
+              <img
+                src="img/clients/baraka.png"
+                width="318"
+                height="160"
+                alt="Baraka №1"
+                loading="lazy"
+              />
+            </li>
+            <li class="client">
+              <img
+                src="img/clients/sairam-nan.png"
+                width="200"
+                height="121"
+                alt="Сайрам нан"
+                loading="lazy"
+              />
+            </li>
+            <li class="client">
+              <img
+                src="img/clients/gold-interior.png"
+                width="150"
+                height="150"
+                alt="Gold Interior Factory"
+                loading="lazy"
+              />
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -908,33 +974,209 @@
         </div>
       </section>
 
-      <!-- МОДУЛЬНАЯ ОПЛАТА -->
-      <section class="section">
+      <!-- ТАРИФЫ -->
+      <!-- Цены дублируются в data-атрибутах: переключатель месяц/год меняет текст без пересборки разметки,
+           а без JS страница всё равно показывает месячную цену и годовую строкой ниже -->
+      <section class="section plans" id="pricing">
         <div class="container">
-          <div class="pricing reveal">
-            <div class="pricing__text">
-              <h2>Платите только за нужные модули</h2>
-              <p>
-                Начните со склада или финансов и подключайте остальное, когда
-                понадобится. Стоимость зависит от набора модулей — расскажем в
-                WhatsApp.
-              </p>
-              <ul class="chips">
-                <li>Склад и производство</li>
-                <li>Финансы</li>
-                <li>Кадры и зарплата</li>
-                <li class="chips__soon">CRM — скоро</li>
-              </ul>
-            </div>
-            <a
-              class="btn btn--primary btn--lg"
-              href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
-              target="_blank"
-              rel="noopener"
-            >
-              <svg class="icon"><use href="#i-wa" /></svg>Узнать стоимость
-            </a>
+          <div class="section__head">
+            <p class="eyebrow">Тарифы</p>
+            <h2>Выберите тариф</h2>
+            <p class="section__lead">
+              Первые 14 дней — бесплатно на любом тарифе.
+            </p>
           </div>
+
+          <div class="period" role="group" aria-label="Период оплаты">
+            <button
+              class="period__btn"
+              type="button"
+              data-period="month"
+              aria-pressed="true"
+            >
+              В месяц
+            </button>
+            <button
+              class="period__btn"
+              type="button"
+              data-period="year"
+              aria-pressed="false"
+            >
+              В год <span class="period__gift">−2 месяца</span>
+            </button>
+          </div>
+
+          <div class="plans__grid">
+            <article class="plan reveal">
+              <h3 class="plan__name">Старт</h3>
+              <p class="plan__desc">Для небольшого магазина или склада</p>
+              <div class="plan__price" data-month="24 990" data-year="249 900">
+                <span class="plan__amount">24 990</span>
+                <span class="plan__cur">₸</span>
+                <span class="plan__per" data-month="/ мес" data-year="/ год"
+                  >/ мес</span
+                >
+              </div>
+              <p
+                class="plan__note"
+                data-month="или 249 900 ₸ при оплате за год"
+                data-year="≈ 20 825 ₸ в месяц · экономия 49 980 ₸"
+              >
+                или 249 900 ₸ при оплате за год
+              </p>
+              <a
+                class="btn btn--outline btn--lg plan__cta"
+                href="https://my.energosoft.kz/workspace/new"
+                target="_blank"
+                rel="noopener"
+                >Оставить заявку</a
+              >
+              <p class="plan__trial">14 дней бесплатно</p>
+              <dl class="plan__limits">
+                <div>
+                  <dt>Участники</dt>
+                  <dd>4</dd>
+                </div>
+                <div>
+                  <dt>Склады</dt>
+                  <dd>2</dd>
+                </div>
+                <div>
+                  <dt>Денежные счета</dt>
+                  <dd>2</dd>
+                </div>
+                <div>
+                  <dt>Роли</dt>
+                  <dd>3</dd>
+                </div>
+                <div>
+                  <dt>Виды цен</dt>
+                  <dd>2</dd>
+                </div>
+              </dl>
+              <p class="plan__base">Что входит:</p>
+              <ul class="plan__feats">
+                <li>ДДС</li>
+                <li>Акт сверки</li>
+                <li>Остатки склада за период</li>
+              </ul>
+            </article>
+            <article class="plan plan--featured reveal">
+              <span class="plan__badge">Рекомендуем</span>
+              <h3 class="plan__name">Бизнес</h3>
+              <p class="plan__desc">Для компании с бухгалтерией и штатом</p>
+              <div class="plan__price" data-month="49 990" data-year="499 900">
+                <span class="plan__amount">49 990</span>
+                <span class="plan__cur">₸</span>
+                <span class="plan__per" data-month="/ мес" data-year="/ год"
+                  >/ мес</span
+                >
+              </div>
+              <p
+                class="plan__note"
+                data-month="или 499 900 ₸ при оплате за год"
+                data-year="≈ 41 658 ₸ в месяц · экономия 99 980 ₸"
+              >
+                или 499 900 ₸ при оплате за год
+              </p>
+              <a
+                class="btn btn--primary btn--lg plan__cta"
+                href="https://my.energosoft.kz/workspace/new"
+                target="_blank"
+                rel="noopener"
+                >Оставить заявку</a
+              >
+              <p class="plan__trial">14 дней бесплатно</p>
+              <dl class="plan__limits">
+                <div>
+                  <dt>Участники</dt>
+                  <dd>10</dd>
+                </div>
+                <div>
+                  <dt>Склады</dt>
+                  <dd>5</dd>
+                </div>
+                <div>
+                  <dt>Денежные счета</dt>
+                  <dd>6</dd>
+                </div>
+                <div>
+                  <dt>Роли</dt>
+                  <dd>10</dd>
+                </div>
+                <div>
+                  <dt>Виды цен</dt>
+                  <dd class="plan__inf">без ограничений</dd>
+                </div>
+              </dl>
+              <p class="plan__base">Всё из тарифа «Старт», плюс:</p>
+              <ul class="plan__feats">
+                <li>ОПиУ и баланс</li>
+                <li>Дебет / Кредит</li>
+                <li>Зарплатные ведомости</li>
+                <li>Основные средства</li>
+                <li>Фонды и обязательства</li>
+                <li>Валютные счета</li>
+                <li>ABC-XYZ анализ продаж</li>
+              </ul>
+            </article>
+            <article class="plan reveal">
+              <h3 class="plan__name">Pro</h3>
+              <p class="plan__desc">Для производства и сети складов</p>
+              <div class="plan__price" data-month="79 990" data-year="799 900">
+                <span class="plan__amount">79 990</span>
+                <span class="plan__cur">₸</span>
+                <span class="plan__per" data-month="/ мес" data-year="/ год"
+                  >/ мес</span
+                >
+              </div>
+              <p
+                class="plan__note"
+                data-month="или 799 900 ₸ при оплате за год"
+                data-year="≈ 66 658 ₸ в месяц · экономия 159 980 ₸"
+              >
+                или 799 900 ₸ при оплате за год
+              </p>
+              <a
+                class="btn btn--outline btn--lg plan__cta"
+                href="https://my.energosoft.kz/workspace/new"
+                target="_blank"
+                rel="noopener"
+                >Оставить заявку</a
+              >
+              <p class="plan__trial">14 дней бесплатно</p>
+              <dl class="plan__limits">
+                <div>
+                  <dt>Участники</dt>
+                  <dd>20</dd>
+                </div>
+                <div>
+                  <dt>Склады</dt>
+                  <dd>20</dd>
+                </div>
+                <div>
+                  <dt>Денежные счета</dt>
+                  <dd class="plan__inf">без ограничений</dd>
+                </div>
+                <div>
+                  <dt>Роли</dt>
+                  <dd>20</dd>
+                </div>
+                <div>
+                  <dt>Виды цен</dt>
+                  <dd class="plan__inf">без ограничений</dd>
+                </div>
+              </dl>
+              <p class="plan__base">Всё из тарифа «Бизнес», плюс:</p>
+              <ul class="plan__feats">
+                <li>Производство</li>
+                <li>Отчёт по продажам</li>
+                <li>Кабинеты контрагентов</li>
+              </ul>
+            </article>
+          </div>
+
+          <p class="plans__footnote">Цены указаны в тенге.</p>
         </div>
       </section>
 
@@ -966,9 +1208,9 @@
                 </svg>
               </summary>
               <p>
-                Да. Документ изготовления списывает сырьё и приходует готовую
-                продукцию, а себестоимость рассчитывается по фактическим ценам
-                партий, из которых она сделана.
+                Да, на тарифе Pro. Документ изготовления списывает сырьё и
+                приходует готовую продукцию, а себестоимость рассчитывается по
+                фактическим ценам партий, из которых она сделана.
               </p>
             </details>
             <details class="qa">
@@ -979,8 +1221,8 @@
               </summary>
               <p>
                 Вносите начальные остатки товаров, денег и долгов — и дальше
-                работаете в системе с текущей даты. Напишите нам, подскажем, с
-                чего удобнее начать.
+                работаете в системе с текущей даты. Оставьте заявку — подскажем,
+                с чего удобнее начать.
               </p>
             </details>
             <details class="qa">
@@ -1024,8 +1266,9 @@
                 Сколько стоит?<svg class="icon"><use href="#i-plus" /></svg>
               </summary>
               <p>
-                Стоимость зависит от набора модулей. Напишите в WhatsApp —
-                рассчитаем под вашу задачу.
+                От 24 990 ₸ в месяц, при оплате за год — два месяца в подарок.
+                Все тарифы — <a href="#pricing">в разделе выше</a>, первые 14
+                дней бесплатно.
               </p>
             </details>
           </div>
@@ -1033,7 +1276,7 @@
       </section>
 
       <!-- ФИНАЛЬНЫЙ ПРИЗЫВ -->
-      <section class="section section--tight">
+      <!-- <section class="section section--tight">
         <div class="container">
           <div class="cta reveal">
             <h2>Расскажем, как EnergoSoft подойдёт вашему бизнесу</h2>
@@ -1058,23 +1301,15 @@
             </div>
           </div>
         </div>
-      </section>
+      </section> -->
     </main>
 
     <footer class="footer">
       <div class="container footer__inner">
         <a class="logo" href="#top">Energo<span>Soft.</span></a>
-        <p class="footer__meta">
-          © 2026 EnergoSoft · Разработка —
-          <a
-            href="https://www.instagram.com/anycode.kz"
-            target="_blank"
-            rel="noopener"
-            >Anycode</a
-          >
-        </p>
+        <p class="footer__meta">© 2026 EnergoSoft</p>
         <div class="footer__links">
-          <a
+          <!-- <a
             href="https://wa.me/77080039686"
             target="_blank"
             rel="noopener"
@@ -1087,13 +1322,13 @@
             rel="noopener"
             aria-label="Instagram"
             ><svg class="icon"><use href="#i-ig" /></svg
-          ></a>
+          ></a> -->
         </div>
       </div>
     </footer>
 
     <!-- Плавающая кнопка: на телефоне шапка уезжает, а связаться надо в любой момент -->
-    <a
+    <!-- <a
       class="fab"
       href="https://wa.me/77080039686?text=%D0%97%D0%B4%D1%80%D0%B0%D0%B2%D1%81%D1%82%D0%B2%D1%83%D0%B9%D1%82%D0%B5%21%20%D0%A5%D0%BE%D1%87%D1%83%20%D1%83%D0%B7%D0%BD%D0%B0%D1%82%D1%8C%20%D0%BF%D1%80%D0%BE%20EnergoSoft"
       target="_blank"
@@ -1101,7 +1336,7 @@
       aria-label="Написать в WhatsApp"
     >
       <svg class="icon"><use href="#i-wa" /></svg>
-    </a>
+    </a> -->
 
     <!-- Увеличенный скриншот -->
     <dialog class="lightbox" id="lightbox" aria-label="Скриншот">

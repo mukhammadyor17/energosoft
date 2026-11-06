@@ -453,6 +453,87 @@ h3 {
   color: var(--c-text-secondary);
 }
 
+/* ---------- Клиенты: бесконечная лента ---------- */
+
+.clients {
+  padding: 64px 0 0;
+  background: var(--c-surface);
+}
+.clients__title {
+  margin-bottom: 28px;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--c-text-muted);
+}
+
+.marquee {
+  overflow: hidden;
+  /* Края растворяются, иначе логотип обрезается о край экрана на полуслове */
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+/* Без JS (и при «уменьшить движение») — обычный ряд по центру с переносом */
+.marquee__track {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4px var(--gutter) 8px;
+}
+.marquee.is-running .marquee__track {
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  width: max-content;
+  max-width: none;
+  margin: 0;
+  padding: 4px 0 8px;
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+/* Наведение останавливает ленту — чтобы можно было рассмотреть логотип */
+.marquee.is-running:hover .marquee__track {
+  animation-play-state: paused;
+}
+@keyframes marquee {
+  to {
+    transform: translateX(calc(-1 * var(--marquee-shift, 50%)));
+  }
+}
+
+.client {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 200px;
+  height: 104px;
+  padding: 16px 20px;
+  border-radius: var(--r-card);
+  border: 1px solid var(--c-border);
+  background: var(--c-surface);
+}
+.client img {
+  width: auto;
+  max-width: 100%;
+  max-height: 72px;
+  object-fit: contain;
+}
+
 /* ---------- Боли ---------- */
 
 .pains {
@@ -704,44 +785,203 @@ h3 {
   color: var(--c-text-secondary);
 }
 
-/* ---------- Модульная оплата ---------- */
+/* ---------- Тарифы ---------- */
 
-.pricing {
+.period {
   display: flex;
+  gap: 4px;
+  width: fit-content;
+  margin: 0 auto 40px;
+  padding: 6px;
+  border-radius: 14px;
+  background: var(--c-bg-deep);
+}
+.period__btn {
+  display: inline-flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 40px;
-  padding: 48px 56px;
-  border-radius: var(--r-big);
+  gap: 8px;
+  height: 44px;
+  padding: 0 20px;
+  border: 0;
+  border-radius: var(--r-control);
+  background: transparent;
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--c-text-secondary);
+  cursor: pointer;
+  transition:
+    background-color 0.15s,
+    color 0.15s,
+    box-shadow 0.15s;
+}
+.period__btn[aria-pressed="true"] {
   background: var(--c-surface);
+  color: var(--c-text);
   box-shadow: var(--shadow);
 }
-.pricing h2 {
-  font-size: clamp(24px, 2.8vw, 32px);
-  margin-bottom: 12px;
+.period__btn:focus-visible {
+  outline: 3px solid rgba(14, 117, 105, 0.35);
+  outline-offset: 2px;
 }
-.pricing p {
-  max-width: 620px;
-  color: var(--c-text-secondary);
-}
-
-.chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
-}
-.chips li {
-  padding: 6px 14px;
+.period__gift {
+  padding: 2px 8px;
   border-radius: 999px;
   background: var(--c-primary-light);
   color: var(--c-primary);
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 12px;
+  font-weight: 600;
 }
-.chips .chips__soon {
-  background: #f1efea;
+
+.plans__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.plan {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: 32px 28px;
+  border-radius: var(--r-big);
+  background: var(--c-surface);
+  box-shadow: var(--shadow);
+  border: 1px solid transparent;
+}
+/* Рекомендуемый тариф выделяется рамкой и плашкой, а не размером:
+   карточка крупнее соседних ломает строку цен, по которой их сравнивают */
+.plan--featured {
+  border-color: var(--c-primary);
+  box-shadow:
+    0 2px 6px rgba(14, 117, 105, 0.08),
+    0 16px 40px rgba(14, 117, 105, 0.12);
+}
+.plan__badge {
+  position: absolute;
+  top: -13px;
+  left: 28px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: var(--c-primary);
+  color: #fff;
+  font-size: 12px;
+  font-weight: 600;
+}
+.plan__name {
+  font-size: 22px;
+  font-weight: 700;
+}
+.plan__desc {
+  margin-top: 6px;
+  font-size: 15px;
   color: var(--c-text-secondary);
+}
+.plan__price {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 24px;
+  font-variant-numeric: tabular-nums;
+}
+.plan__amount {
+  font-size: 40px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+.plan__cur {
+  font-size: 24px;
+  font-weight: 600;
+}
+.plan__per {
+  font-size: 15px;
+  color: var(--c-text-muted);
+}
+.plan__note {
+  /* Высота под две строки: при смене периода текст длиннее, и кнопки ниже не должны прыгать */
+  min-height: 44px;
+  margin-top: 8px;
+  font-size: 14px;
+  color: var(--c-text-secondary);
+  font-variant-numeric: tabular-nums;
+}
+.plan__cta {
+  margin-top: 16px;
+  width: 100%;
+}
+.plan__trial {
+  margin-top: 10px;
+  text-align: center;
+  font-size: 13px;
+  color: var(--c-text-muted);
+}
+
+.plan__limits {
+  display: grid;
+  margin-top: 24px;
+  padding-top: 8px;
+  border-top: 1px solid var(--c-border);
+}
+.plan__limits div {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  font-size: 15px;
+}
+.plan__limits dt {
+  color: var(--c-text-secondary);
+}
+.plan__limits dd {
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+.plan__limits .plan__inf {
+  color: var(--c-primary);
+}
+
+.plan__base {
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid var(--c-border);
+  font-size: 14px;
+  font-weight: 600;
+}
+.plan__feats {
+  display: grid;
+  gap: 10px;
+  margin-top: 12px;
+}
+.plan__feats li {
+  position: relative;
+  padding-left: 28px;
+  font-size: 15px;
+}
+.plan__feats li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 2px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--c-primary-light)
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%230E7569' stroke-width='2.8' stroke-linecap='round' stroke-linejoin='round' d='m6 12.5 4 4L18 8'/%3E%3C/svg%3E")
+    center / 12px no-repeat;
+}
+
+.plans__footnote {
+  margin-top: 32px;
+  text-align: center;
+  font-size: 14px;
+  color: var(--c-text-muted);
+}
+.plans__footnote a {
+  color: var(--c-primary);
 }
 
 /* ---------- FAQ ---------- */
@@ -1033,10 +1273,12 @@ h3 {
     order: 0;
   }
 
-  .pricing {
-    flex-direction: column;
-    align-items: flex-start;
-    padding: 36px 28px;
+  /* Три карточки в ряд на планшете сжимают цену до переноса — ставим их столбиком */
+  .plans__grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin: 0 auto;
+    gap: 28px;
   }
 
   .fab {
@@ -1073,6 +1315,18 @@ h3 {
   .shot--hero {
     margin-top: 40px;
     max-height: 360px;
+  }
+
+  .clients {
+    padding-top: 48px;
+  }
+  .client {
+    width: 156px;
+    height: 88px;
+    padding: 12px 18px;
+  }
+  .client img {
+    max-height: 52px;
   }
 
   .pains__grid {
@@ -1133,7 +1387,6 @@ h3 {
     margin-top: 12px;
   }
 
-  .pricing .btn,
   .cta__actions .btn {
     width: 100%;
   }

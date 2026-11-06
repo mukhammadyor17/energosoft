@@ -56,6 +56,23 @@ tabs.forEach((tab, i) => {
   });
 });
 
+// ---------- Тарифы: месяц / год ----------
+// Тексты обоих периодов лежат в data-атрибутах разметки: цены правятся в одном месте, в HTML
+
+const periodButtons = document.querySelectorAll('.period__btn');
+
+const setPeriod = (period) => {
+  periodButtons.forEach((btn) => btn.setAttribute('aria-pressed', String(btn.dataset.period === period)));
+  document.querySelectorAll('.plan__price').forEach((el) => {
+    el.querySelector('.plan__amount').textContent = el.dataset[period];
+    const per = el.querySelector('.plan__per');
+    per.textContent = per.dataset[period];
+  });
+  document.querySelectorAll('.plan__note').forEach((el) => { el.textContent = el.dataset[period]; });
+};
+
+periodButtons.forEach((btn) => btn.addEventListener('click', () => setPeriod(btn.dataset.period)));
+
 // ---------- Появление блоков при прокрутке ----------
 
 const revealItems = document.querySelectorAll('.reveal');
@@ -71,6 +88,56 @@ if ('IntersectionObserver' in window) {
   revealItems.forEach((el) => io.observe(el));
 } else {
   revealItems.forEach((el) => el.classList.add('is-visible'));
+}
+
+// ---------- Клиенты: бесконечная лента ----------
+// Лента едет на ширину одного набора логотипов и прыгает в начало — шов не виден, потому что
+// за первым набором стоит его точная копия. Копий нужно столько, чтобы во время сдвига экран
+// всегда был заполнен: на широком мониторе шести логотипов на это не хватает.
+
+const marquee = document.querySelector('.marquee');
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
+
+if (marquee) {
+  const track = marquee.querySelector('.marquee__track');
+  const originals = [...track.children];
+  const SPEED = 40; // px в секунду: медленно, чтобы логотип успевали прочитать
+
+  const build = () => {
+    track.querySelectorAll('[data-clone]').forEach((el) => el.remove());
+    if (reduceMotion.matches) {
+      marquee.classList.remove('is-running');
+      return;
+    }
+    marquee.classList.add('is-running');
+
+    const gap = parseFloat(getComputedStyle(track).columnGap) || 0;
+    // Шаг цикла — набор целиком вместе с промежутком после последнего логотипа
+    const setWidth = originals.reduce((sum, el) => sum + el.offsetWidth + gap, 0);
+
+    let total = setWidth;
+    while (total < setWidth + marquee.clientWidth) {
+      originals.forEach((el) => {
+        const clone = el.cloneNode(true);
+        clone.dataset.clone = '';
+        clone.setAttribute('aria-hidden', 'true');
+        clone.querySelector('img').alt = '';
+        track.append(clone);
+      });
+      total += setWidth;
+    }
+
+    track.style.setProperty('--marquee-shift', `${setWidth}px`);
+    track.style.setProperty('--marquee-duration', `${setWidth / SPEED}s`);
+  };
+
+  build();
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(build, 200);
+  });
+  reduceMotion.addEventListener('change', build);
 }
 
 // ---------- Плавающая кнопка WhatsApp ----------
